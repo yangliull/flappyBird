@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Flappy Bird</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}	
+		body,html {
+			height: 100%;
+			display: flex;			
+			justify-content:center;			
+		}	
+		#wrap {				
+			width: 360px;
+			height: 660px;					
+			background: url(./imgs_pack.png) -2px 0 no-repeat;
+			position: relative;
+			overflow: hidden;
+		}	
+		span {
+			color: #fff;
+			font-weight: bold;
+			font-size: 32px;		
+			float: left;
+			margin-left:170px;
+			margin-top: 100px;
+		}
+		#ready {
+			width: 63px;
+			height: 231px;
+			position: absolute;			
+			left: 60px;			
+			top: 260px;
+			background: url(./imgs_pack.png) -206px -652px no-repeat;
+			transform-origin:left top;
+			transform:rotate(-90deg);
+		}
+		#floot {
+			width: 420px;
+			height: 140px;
+			position: absolute;
+			bottom: 0;
+			left:-30px;
+			overflow: hidden;
+			background: url(./imgs_pack.png) -434px 0 no-repeat;
+			animation:flootMove 300ms linear infinite;
+		}
+		@keyframes flootMove {
+			0% {-webkit-transform:translate(0);}
+			50% {-webkit-transform:translate(-15px);}
+			100% {-webkit-transform:translate(-30px);}
+		}		
+		#top {
+			width: 144px;
+			height: 129px;
+			position: absolute;
+			top:50%;
+			left:50%;
+			margin-left: -72px;
+			margin-top: -40px;
+			background: url(./imgs_pack.png) -290px -896px no-repeat;
+		}
+		#bird {
+			width: 30px;
+			height: 43px;
+			position: absolute;	
+			left: 80px;			
+			transform-origin:left top;/*以某点进行旋转*/			
+		}
+		.bird0 {					
+			background: url(./imgs_pack.png) -105px -979px no-repeat;	
+		}
+		.bird1 {		
+			background: url(./imgs_pack.png) -137px -979px no-repeat;
+		}	
+		.bird2 {				
+			background: url(./imgs_pack.png) -169px -979px no-repeat;
+		}		
+	</style>
+</head>
+<body>		
+	<div id="wrap">
+		<span>0</span>
+		<div id="ready"></div>
+		<div id="top"></div>
+		<div id="bird"></div>
+		<div id="floot"></div>
+	</div>	
+	<script>
+	window.onload = function() {
+		var oBird = document.getElementById('bird');
+		var startTime = Date.now();
+		var i = 0;
+		setInterval(function(){		
+			var p = (Date.now()-startTime)/800;
+			var ty = 320+5*Math.sin(2*Math.PI*p);	
+			oBird.className = 'bird'+((++i)%3);	//切换小鸟背景图片
+			oBird.style.transform = 'translateY('+ty+'px) rotate(-90deg)';//小鸟上下做匀速运动		
+		},1000/10);
+	}
+	</script>	
+</body>
+</html>
